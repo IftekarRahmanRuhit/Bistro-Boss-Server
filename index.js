@@ -27,8 +27,17 @@ async function run() {
 
     const db = client.db("Bistro-Boss-DB");
     const menuCollection = db.collection("menu");
+    const userCollection = db.collection("users");
     const reviewCollection = db.collection("reviews");
     const cartCollection = db.collection("carts");
+
+    // user related api (saving user information) 
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const result = await userCollection.insertOne(user);
+      res.send(result);
+    });
+
 
     // getting all menu data from db
     app.get("/menu", async (req, res) => {
